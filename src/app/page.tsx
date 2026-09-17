@@ -6,66 +6,42 @@ import Button from "@/components/Button";
 import SectionHeading from "@/components/SectionHeading";
 import HeroSection from "@/components/HeroSection";
 import WelcomeSection from "@/components/WelcomeSection";
-import ProgramCard from "@/components/ProgramCard";
+import TrainingPathwaysSection, { TrainingPathwayItem } from "@/components/PathwayCard";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 
 export default function HomePage() {
-  const trainingPrograms = [
+  const trainingPrograms: TrainingPathwayItem[] = [
     {
       title: "Strength Training",
-      category: "Foundations",
-      description:
-        "Master the squat, hinge, press, and pull at your own pace. Individualized technical guidance focused on structural resilience, joint health, and sustainable power.",
-      imageSrc:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuDS3OtmpLmtFVLFx4Xt-8pqVkaFhjwuXAkv4I3jvzfMxvzaNgc7RTvvF3_r11ocOCL9lNG3tfVeIo4mnkrYb3Ur9B20X6uiqAw41Od_WawREGtjmGEZ9RmTgdIPYx4eKXrvgBKin5fzE6bpzVXCZfmHphRrIIR-20J4aiBSrG7-DdHNIYUH-_whMxg1TExvHk5bHSxocDxIwQlUriILYHCaD-KRBxZTf0biGjw7luLTL6Z74LDmNKC9nw",
+      titleLines: ["STRENGTH", "TRAINING"],
+      description: "Build strength and confidence, one steady step at a time.",
+      imageSrc: "/images/strength.jpeg",
       href: "/training#strength-training",
-      benefits: [
-        "Personalized progression without arbitrary loading",
-        "Full movement screening before prescription",
-        "Attentive coaching in a calm environment",
-      ],
+      objectPosition: "center 35%",
     },
     {
       title: "Personal Training",
-      category: "1-on-1 Guidance",
-      description:
-        "Dedicated one-on-one coaching designed entirely around your body, schedule, and personal goals. Private, calm, and completely focused on you.",
-      imageSrc:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuD3CONNiaie90RAL-AMFvqrWO8Z9PQfiRFoCpzaKT4y_vQMbxuL1kGlK-yMDBQcYpAYsJlqHEtbM5LiIpBCDC-ZnXHgVCO35mjlkeV40xkYD-lRMNf2ZLqOaxhXETwxtWXirj0ZpiOJlwYoqKNU_SAzlP0runG2IFMaeAxhha0ersnocP79RHAlhHFo8MRYIIXo7rd_K1r3Yu7UKEMYv_BRCTqTsdKFpmvoxtI6wLi_95GbaWdOYkvjoQ",
+      titleLines: ["PERSONAL", "TRAINING"],
+      description: "Your goals. Your pace. A coach beside you.",
+      imageSrc: "/images/personal%20training.jpeg",
       href: "/training#personal-training",
-      benefits: [
-        "Comprehensive movement and baseline review",
-        "Sessions adapted to your daily physical energy",
-        "Direct communication with your personal coach",
-      ],
+      objectPosition: "56% 30%",
     },
     {
       title: "Functional Fitness",
-      category: "Daily Movement",
-      description:
-        "Movement patterns that translate directly to daily life. Improve rotational stability, balance, joint freedom, and the stamina to move with ease outside the gym.",
-      imageSrc:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuB4vZbDN_lFsJs0MkPD1LaKFokDDaha4P68949lDeRNkonEWM6-brJQtvGY8bJoY1tlN06-JxREprrwNxKeXOV-cx8Jr7zjh-10GyZmcrs-xGVYhkPBbMF7wW-fSMp5HN8Htn_C9BVx123s40Cn9_2jez3k95mon63c6TpEjbsBPnmSC0vzsIsO4Ns4zal_UepOBswXTD_slpAnUNm67TMvmmNnzy3d4Juyt7IeVxN36PMyEv9emr7KjQ",
+      titleLines: ["FUNCTIONAL", "FITNESS"],
+      description: "Move with ease. Feel stronger in everyday life.",
+      imageSrc: "/images/functional%20fitness.jpeg",
       href: "/training#functional-fitness",
-      benefits: [
-        "Unweighted and loaded mobility drills",
-        "Core stability and postural alignment",
-        "Progressive conditioning that respects joints",
-      ],
+      objectPosition: "50% 30%",
     },
     {
       title: "Conditioning",
-      category: "Aerobic Capacity",
-      description:
-        "Low-impact aerobic work that builds lung capacity and cardiovascular health without joint punishment or burnout. Steady, intelligent intervals designed for recovery.",
-      imageSrc:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuDUIFN5cSdhcdn0PTxg_54eipk1FVpM7ky1gmSIdl6P4bChS4u4fVJr9NX7w-pWZGtDz5_IP48spSFswHX1XwrEbwULONzXUYwTFLXySXZzJUfQ4cq3zQsmNsThhSjY23e5vyivUm5nFbVus092yJkVIl1jRmlk1LEL9iajoQegBJWGA-iJD_zmDs9cGCvTIyxFAasa7MYr5YD_wrwBoD1pJGF-2ypkC5dHhvoiN8aCxd8_-UYNiUQL_A",
+      titleLines: ["CONDITIONING"],
+      description: "Build your stamina. Find more energy for life.",
+      imageSrc: "/images/conditioning.jpeg",
       href: "/training#conditioning",
-      benefits: [
-        "Heart-rate guided pacing and interval work",
-        "Low-impact ergometers and bodyweight flows",
-        "Restores autonomic calm and sleep quality",
-      ],
+      objectPosition: "52% 28%",
     },
   ];
 
@@ -77,34 +53,8 @@ export default function HomePage() {
       {/* 2. A PLACE WHERE YOU BELONG (Editorial Introduction) */}
       <WelcomeSection />
 
-      {/* 3. TRAINING PREVIEW (Four Image-Led Programs in 2x2 Grid) */}
-      <section className="w-full py-20 sm:py-24 lg:py-28 bg-sand border-b border-divider">
-        <div className="max-w-container mx-auto px-5 sm:px-6 md:px-12">
-          <ScrollReveal direction="up" className="mb-12 lg:mb-16">
-            <SectionHeading
-              eyebrow="Training Pathways"
-              title="Four paths. One supportive roof."
-              description="Each discipline is guided with deliberate progressions and personal attention. Choose what matches your current season of life."
-            />
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-            {trainingPrograms.map((prog, index) => (
-              <ScrollReveal key={prog.title} direction="up" delay={index * 0.06}>
-                <ProgramCard
-                  title={prog.title}
-                  category={prog.category}
-                  description={prog.description}
-                  imageSrc={prog.imageSrc}
-                  href={prog.href}
-                  benefits={prog.benefits}
-                  ctaText="Explore Program"
-                />
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 3. TRAINING PREVIEW (Sequential Scroll-Controlled Card Reveal) */}
+      <TrainingPathwaysSection programs={trainingPrograms} />
 
       {/* 4. MOVEMENT FEATURE */}
       <section className="w-full py-20 sm:py-24 lg:py-28 bg-page border-b border-divider">

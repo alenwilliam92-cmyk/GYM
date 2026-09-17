@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +8,14 @@ const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-manrope",
+  display: "swap",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["800", "900"],
+  style: ["italic"],
+  variable: "--font-athletic",
   display: "swap",
 });
 
@@ -33,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${manrope.variable} font-sans bg-page text-main antialiased selection:bg-accent selection:text-white flex flex-col min-h-screen`}
+        className={`${manrope.variable} ${barlowCondensed.variable} font-sans bg-page text-main antialiased selection:bg-accent selection:text-white flex flex-col min-h-screen`}
       >
         <Navbar />
         <main className="flex-1 w-full">{children}</main>

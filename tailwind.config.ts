@@ -31,6 +31,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
         manrope: ["var(--font-manrope)", "system-ui", "sans-serif"],
+        athletic: ["var(--font-athletic)", "sans-serif"],
       },
       maxWidth: {
         container: "1320px",
