@@ -3,7 +3,7 @@ import Link from "next/link";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "outline-white";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
   className?: string;
@@ -29,6 +29,8 @@ export default function Button({
       "bg-transparent text-main border border-input-outline/40 hover:border-main hover:bg-sand/30 active:scale-[0.99]",
     ghost:
       "bg-transparent text-main hover:text-accent hover:bg-sand/20 px-4",
+    "outline-white":
+      "bg-transparent text-white border border-white/75 hover:border-white hover:bg-white/15 active:scale-[0.99] focus-visible:outline-white",
   };
 
   const sizeStyles = {

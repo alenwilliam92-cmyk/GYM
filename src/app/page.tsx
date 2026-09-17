@@ -4,7 +4,8 @@ import React from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
 import SectionHeading from "@/components/SectionHeading";
-import HeroVideo from "@/components/HeroVideo";
+import HeroSection from "@/components/HeroSection";
+import WelcomeSection from "@/components/WelcomeSection";
 import ProgramCard from "@/components/ProgramCard";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 
@@ -70,96 +71,11 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col w-full bg-page">
-      {/* 1. CINEMATIC HERO */}
-      <section className="w-full pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 border-b border-divider">
-        <div className="max-w-container mx-auto px-5 sm:px-6 md:px-12">
-          {/* Spacious Ivory Heading Area */}
-          <div className="max-w-3xl mb-10 sm:mb-14">
-            <ScrollReveal direction="down">
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary block mb-4">
-                Precision Athletic Conditioning &amp; Wellness
-              </span>
-            </ScrollReveal>
+      {/* 1. CINEMATIC VIDEO HERO */}
+      <HeroSection />
 
-            <ScrollReveal direction="up" delay={0.05}>
-              <h1 className="text-4xl sm:text-6xl lg:text-[76px] font-semibold text-main leading-[1.08] tracking-[-0.03em]">
-                One day, you’ll thank yourself for starting.
-              </h1>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.12}>
-              <p className="mt-6 text-lg sm:text-xl text-secondary leading-[1.6] max-w-[55ch]">
-                Start where you are. Build strength, confidence, and a little more belief in yourself.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.18}>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button href="/contact-us" variant="primary" size="lg">
-                  Take the First Step
-                </Button>
-                <Button href="/training" variant="secondary" size="lg">
-                  Explore Training
-                </Button>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Large Cinematic Visual Banner */}
-          <ScrollReveal direction="up" delay={0.22}>
-            <HeroVideo
-              posterSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuCu9R0w1H5-6V9LoI6fweiplVeUmWMoXNVFcfiTjSe7cNDpM_23qquxkGdS5SSZk3lCxjMS0BHnJ7UxymSUFVJzjIU7qvNzCt-djCfJdEteEWOpp8bBH_XPfHuH_9TtlylGO_TMpyC6bCKJcaMAOs5f6DvKK0tCEc1S18eTfbUPzuED3-be4kDGn4XMTBUqfr_QowURYMoYaR1RdNlruASGjq7TOLme6DNlC136zS1Kp3g5t_Spa-PcBw"
-              alt="Two athletes focused on strength training in a bright, tranquil gym studio"
-              aspectClassName="aspect-[16/10] sm:aspect-[16/9] lg:aspect-[21/9]"
-              overlay={false}
-            />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* 2. WELCOME STATEMENT */}
-      <section className="w-full py-20 sm:py-24 lg:py-28 bg-page border-b border-divider">
-        <div className="max-w-container mx-auto px-5 sm:px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            {/* Copy (60%) */}
-            <div className="lg:col-span-6 flex flex-col items-start">
-              <ScrollReveal direction="up">
-                <span className="text-xs font-semibold uppercase tracking-[0.12em] text-secondary mb-3 block">
-                  A Welcoming Sanctuary
-                </span>
-                <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-semibold text-main leading-[1.15] tracking-[-0.03em]">
-                  A place where you belong.
-                </h2>
-                <p className="mt-5 text-base sm:text-lg text-secondary leading-[1.65] max-w-[55ch]">
-                  Walking into a gym can feel like the hardest part. You might wonder where to begin, what to do, or whether you’ll fit in. There is room for you here.
-                </p>
-                <p className="mt-4 text-base sm:text-lg text-secondary leading-[1.65] max-w-[55ch]">
-                  Ask questions. Learn at your own pace. Celebrate small wins. We believe in building capability through patient, consistent coaching—one quiet session at a time.
-                </p>
-                <div className="mt-8">
-                  <Button href="/about-us" variant="secondary">
-                    Our Philosophy &amp; Space
-                  </Button>
-                </div>
-              </ScrollReveal>
-            </div>
-
-            {/* Large Clean Gym Image (40%) */}
-            <div className="lg:col-span-6 relative">
-              <ScrollReveal direction="up" delay={0.1}>
-                <div className="overflow-hidden rounded-2xl bg-sand border border-divider shadow-sm group">
-                  <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZOF0_t9y-gW_MpL6-dyuKyEe-_qFLBATYa2175GBVKUTRPa8qUnoWEZ_0kygJtD7LrCdwFWygm6UbU_FHDYL7o2ei9LWq_rfkCMvnHEVEz2_d7WNglezyl5HbM376zGK3UWaRZtlmEsmBUQTu0juX8endN60IdYawqZbIZ_YFraZ5dh_Pb0ZUbMMgx7GiXpzsc-ipTqlvNruglvUglWFzaPnZMRiLCjwodH7a5PH9pPudsu_uyqgLDw"
-                    alt="A coach patiently assisting a member through a natural movement pattern"
-                    className="w-full h-[380px] sm:h-[480px] lg:h-[540px] object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                    loading="lazy"
-                  />
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 2. A PLACE WHERE YOU BELONG (Editorial Introduction) */}
+      <WelcomeSection />
 
       {/* 3. TRAINING PREVIEW (Four Image-Led Programs in 2x2 Grid) */}
       <section className="w-full py-20 sm:py-24 lg:py-28 bg-sand border-b border-divider">
