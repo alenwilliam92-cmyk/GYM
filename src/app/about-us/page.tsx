@@ -6,6 +6,8 @@ import SectionHeading from "@/components/SectionHeading";
 import MediaSection from "@/components/MediaSection";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 
+import AboutHeroSection from "@/components/AboutHeroSection";
+
 export default function AboutUsPage() {
   const principles = [
     {
@@ -36,42 +38,8 @@ export default function AboutUsPage() {
 
   return (
     <div className="flex flex-col w-full bg-page">
-      {/* 1. HERO SECTION */}
-      <section className="w-full pt-12 sm:pt-16 lg:pt-20 pb-16 sm:pb-24 border-b border-divider">
-        <div className="max-w-container mx-auto px-5 sm:px-6 md:px-12">
-          <div className="max-w-3xl mb-12">
-            <ScrollReveal direction="down">
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary block mb-4">
-                Our Story &amp; Philosophy
-              </span>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.05}>
-              <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-semibold text-main leading-[1.1] tracking-[-0.03em]">
-                Built for real life. Designed for who you want to become.
-              </h1>
-            </ScrollReveal>
-
-            <ScrollReveal direction="up" delay={0.12}>
-              <p className="mt-6 text-lg sm:text-xl text-secondary leading-[1.65] max-w-[60ch]">
-                We started GYM to strip away the intimidating atmosphere, performative noise, and unrealistic expectations of traditional fitness. Here, everyone begins from somewhere real.
-              </p>
-            </ScrollReveal>
-          </div>
-
-          {/* Large Hero Image */}
-          <ScrollReveal direction="up" delay={0.18}>
-            <div className="relative overflow-hidden rounded-2xl bg-sand border border-divider shadow-sm aspect-[16/9] lg:aspect-[21/9]">
-              <img
-                src="/images/gym%20about.jpeg"
-                alt="Bright, serene gym sanctuary with daylight streaming across clean training stations"
-                className="w-full h-full object-cover"
-                loading="eager"
-              />
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      {/* 1. HERO SECTION WITH BACKGROUND VIDEO */}
+      <AboutHeroSection />
 
       {/* 2. CULTURE OF BELONGING */}
       <section className="w-full py-20 sm:py-24 lg:py-28 bg-page border-b border-divider">

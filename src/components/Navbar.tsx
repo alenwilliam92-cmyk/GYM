@@ -12,11 +12,11 @@ export default function Navbar() {
   const navRef = useRef<HTMLDivElement | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 
-  const isHome = pathname === "/";
+  const hasHero = pathname === "/" || pathname === "/about-us";
 
-  // Track scroll position to determine if navbar overlaps the hero section on the homepage
+  // Track scroll position to determine if navbar overlaps the hero section on pages with full-bleed hero
   useEffect(() => {
-    if (!isHome) {
+    if (!hasHero) {
       setIsOverHero(false);
       return;
     }
@@ -42,7 +42,7 @@ export default function Navbar() {
       window.removeEventListener("scroll", checkHeroOverlap);
       window.removeEventListener("resize", checkHeroOverlap);
     };
-  }, [isHome, pathname]);
+  }, [hasHero, pathname]);
 
   // Close mobile drawer on route change
   useEffect(() => {
@@ -84,11 +84,11 @@ export default function Navbar() {
     return false;
   };
 
-  // When over hero on homepage and mobile menu is closed, navbar is transparent with white text/icons
-  const isTransparent = isHome && isOverHero && !mobileOpen;
+  // When over hero on hero pages and mobile menu is closed, navbar is transparent with white text/icons
+  const isTransparent = hasHero && isOverHero && !mobileOpen;
 
-  // Positioning: fixed over hero on homepage, sticky on other pages or when scrolled
-  const headerPosition = isHome ? "fixed top-0 left-0 w-full z-50" : "sticky top-0 left-0 w-full z-50";
+  // Positioning: fixed over hero on hero pages, sticky on other pages or when scrolled
+  const headerPosition = hasHero ? "fixed top-0 left-0 w-full z-50" : "sticky top-0 left-0 w-full z-50";
 
   const headerVisuals = mobileOpen
     ? "bg-page border-b border-divider shadow-sm"
