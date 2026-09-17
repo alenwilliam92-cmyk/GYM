@@ -84,13 +84,15 @@ export default function Navbar() {
     return false;
   };
 
-  // On homepage over hero (when mobile menu is closed), navbar is transparent
+  // When over hero on homepage and mobile menu is closed, navbar is transparent with white text/icons
   const isTransparent = isHome && isOverHero && !mobileOpen;
 
   // Positioning: fixed over hero on homepage, sticky on other pages or when scrolled
   const headerPosition = isHome ? "fixed top-0 left-0 w-full z-50" : "sticky top-0 left-0 w-full z-50";
 
-  const headerVisuals = isTransparent
+  const headerVisuals = mobileOpen
+    ? "bg-page border-b border-divider shadow-sm"
+    : isTransparent
     ? "bg-transparent border-b border-transparent shadow-none"
     : "bg-page/95 backdrop-blur-md border-b border-divider shadow-sm";
 
@@ -148,7 +150,7 @@ export default function Navbar() {
           </Button>
         </div>
 
-        {/* Mobile Menu Trigger */}
+        {/* Mobile Menu Trigger (White when transparent over hero, olive otherwise) */}
         <button
           ref={menuButtonRef}
           type="button"
@@ -203,7 +205,7 @@ export default function Navbar() {
         <div
           id="mobile-navigation"
           ref={navRef}
-          className="md:hidden fixed inset-x-0 top-20 bottom-0 bg-page border-t border-divider p-6 flex flex-col justify-between overflow-y-auto animate-in fade-in duration-200 z-50"
+          className="md:hidden fixed inset-x-0 top-20 bottom-0 min-h-[calc(100vh-5rem)] min-h-[calc(100dvh-5rem)] bg-page border-t border-divider p-6 flex flex-col justify-between overflow-y-auto z-50"
         >
           <nav className="flex flex-col space-y-4 pt-2" aria-label="Mobile Navigation">
             <Link

@@ -120,11 +120,11 @@ export default function HeroSection() {
       id="hero-section"
       ref={containerRef}
       aria-label="Welcome hero section"
-      className="relative isolate overflow-hidden w-full min-h-[100svh] flex flex-col justify-end md:justify-center bg-[#111111]"
+      className="w-full relative isolate overflow-hidden min-h-[100svh] h-auto flex flex-col justify-end md:justify-center md:items-center bg-[#111111]"
     >
-      {/* Video Background Layer (z-index 0)
-          On mobile (<768px): object-[35%_25%] frames the active athlete's face and workout.
-          On desktop (>=768px): object-[center_35%] frames both athletes across wide screens. */}
+      {/* Background Video: Fills entire hero on both mobile and desktop via absolute inset-0 object-cover.
+          Mobile framing uses object-[72%_35%] to keep the exercising subject (female athlete on bench) in view.
+          Desktop framing uses md:object-[center_35%]. */}
       <video
         ref={videoRef}
         src="/videos/herosection.mp4"
@@ -136,23 +136,34 @@ export default function HeroSection() {
         preload="auto"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
-        className="absolute inset-0 w-full h-full object-cover object-[35%_25%] md:object-[center_35%] z-0 pointer-events-none select-none"
+        className="absolute inset-0 w-full h-full object-cover object-[72%_35%] md:object-[center_35%] pointer-events-none select-none z-0"
       />
 
-      {/* Non-interactive Gradient Overlay (z-index 1)
-          On mobile: bottom-weighted gradient preserving 50-55% clear footage at upper/middle,
-          darkening smoothly behind bottom copy.
-          On desktop: left-to-right gradient tailored for the left text layout. */}
+      {/* Subtle Top Gradient for Mobile Navbar Readability (<768px) */}
       <div
-        className="absolute inset-0 z-[1] pointer-events-none bg-[linear-gradient(to_bottom,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.05)_22%,rgba(0,0,0,0.1)_48%,rgba(0,0,0,0.72)_72%,rgba(0,0,0,0.92)_100%)] md:bg-none md:bg-gradient-to-r md:from-black/65 md:via-black/40 md:to-black/15"
+        className="md:hidden absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/65 via-black/25 to-transparent pointer-events-none z-[1]"
         aria-hidden="true"
       />
 
-      {/* Foreground Content Layer (z-index 2)
-          On mobile: mt-auto positions content at the bottom ~45%, keeping the top 55% open.
-          On desktop: centered vertical layout with generous breathing room. */}
-      <div className="relative z-[2] max-w-container mx-auto px-5 sm:px-6 md:px-12 w-full flex flex-col justify-end min-h-[100svh] pt-24 pb-[max(1.5rem,env(safe-area-inset-bottom))] md:py-24 md:justify-center">
-        <div className="mt-auto md:mt-0 max-w-[680px] w-full">
+      {/* Smooth Bottom Gradient for Mobile Copy Readability (<768px)
+          Fades to transparent toward the middle of the hero so the workout video remains at natural brightness */}
+      <div
+        className="md:hidden absolute bottom-0 inset-x-0 h-[65%] min-h-[380px] bg-gradient-to-t from-black/85 via-black/45 to-transparent pointer-events-none z-[1]"
+        aria-hidden="true"
+      />
+
+      {/* Desktop Gradient Overlay (768px and above) */}
+      <div
+        className="hidden md:block absolute inset-0 z-[1] pointer-events-none md:bg-gradient-to-r md:from-black/65 md:via-black/40 md:to-black/15"
+        aria-hidden="true"
+      />
+
+      {/* Content Area:
+          On mobile (<768px): Placed toward the bottom using normal flex layout flow, 24px padding (px-6),
+          safe-area bottom padding, warm ivory text, and reserved space for controls.
+          On desktop (>=768px): Overlaid at z-[2] with desktop typography and dual buttons. */}
+      <div className="relative z-[2] w-full px-6 pt-28 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] md:pt-24 md:pb-24 md:px-12 md:max-w-container md:mx-auto flex flex-col justify-end md:justify-center">
+        <div className="max-w-[680px] w-full">
           {/* Eyebrow: Hidden on mobile, visible on desktop */}
           <ScrollReveal direction="down">
             <span className="hidden md:block text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-white/90 mb-4 drop-shadow-sm">
@@ -162,7 +173,7 @@ export default function HeroSection() {
 
           {/* Semantic H1: Responsive text spans for mobile vs desktop */}
           <ScrollReveal direction="up" delay={0.05}>
-            <h1 className="text-[30px] sm:text-[34px] md:text-6xl lg:text-[68px] font-semibold text-white leading-[1.08] tracking-[-0.03em] drop-shadow-md">
+            <h1 className="text-[32px] sm:text-[40px] font-semibold text-[#FAF7F0] leading-[1.08] tracking-[-0.03em] drop-shadow-md md:text-6xl lg:text-[68px] md:text-white md:leading-[1.08]">
               <span className="md:hidden">
                 Your stronger<br />self starts here.
               </span>
@@ -174,7 +185,7 @@ export default function HeroSection() {
 
           {/* Description: Responsive spans for mobile vs desktop */}
           <ScrollReveal direction="up" delay={0.12}>
-            <p className="mt-2.5 sm:mt-3 md:mt-6 text-[15px] sm:text-[16px] md:text-lg lg:text-xl leading-[1.5] md:leading-[1.6] text-white/90 drop-shadow-sm max-w-[55ch]">
+            <p className="mt-3 md:mt-6 text-[16px] text-[#FAF7F0]/90 leading-[1.5] drop-shadow-sm md:text-lg lg:text-xl md:text-white/90 md:leading-[1.6] max-w-[55ch]">
               <span className="md:hidden">
                 Start where you are. Grow stronger with us.
               </span>
@@ -186,7 +197,7 @@ export default function HeroSection() {
 
           {/* Actions & Buttons */}
           <ScrollReveal direction="up" delay={0.18}>
-            <div className="mt-5 sm:mt-6 md:mt-10 flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+            <div className="mt-6 md:mt-10 flex flex-col md:flex-row md:items-center gap-3.5 md:gap-4">
               {/* Primary CTA Button (both mobile and desktop) */}
               <Button
                 href="/contact-us"
@@ -207,22 +218,22 @@ export default function HeroSection() {
                 Explore Training
               </Button>
 
-              {/* Mobile Secondary Row: Compact text link & Play/Pause control (below 768px) */}
-              <div className="md:hidden flex items-center justify-between pt-0.5">
+              {/* Mobile Secondary Row: Compact white text link & Play/Pause control (below 768px) */}
+              <div className="md:hidden flex items-center justify-between pt-1">
                 <Link
                   href="/training"
-                  className="inline-flex items-center gap-1.5 py-2 px-1 text-[15px] font-semibold text-white/95 hover:text-white underline underline-offset-4 decoration-white/60 hover:decoration-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 min-h-[44px] transition-colors"
+                  className="inline-flex items-center gap-1.5 py-2 px-0.5 text-[15px] font-semibold text-white/95 hover:text-white underline underline-offset-4 decoration-white/50 hover:decoration-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 min-h-[44px] transition-colors"
                 >
                   <span>Explore Training</span>
                   <span aria-hidden="true">→</span>
                 </Link>
 
-                {/* Mobile Play/Pause Control (44px touch target) */}
+                {/* Mobile Play/Pause Control (Anchored in bottom row, 44px touch target, does not overlap text) */}
                 <button
                   type="button"
                   onClick={togglePlay}
                   aria-label={isPlaying ? "Pause background video" : "Play background video"}
-                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-md border border-white/25 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 shrink-0"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-black/45 hover:bg-black/65 text-white backdrop-blur-md border border-white/30 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 shrink-0"
                 >
                   {isPlaying ? (
                     <svg
