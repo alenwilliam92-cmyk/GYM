@@ -145,12 +145,12 @@ export default function WelcomeSection() {
               <div className="max-sm:absolute max-sm:bottom-3 max-sm:left-3 max-sm:w-[42%] sm:absolute sm:-bottom-6 sm:-left-6 lg:-bottom-8 lg:-left-8 sm:w-[40%] z-10">
                 <div className="overflow-hidden rounded-[8px] p-1 sm:p-1.5 bg-[#FAF7F0] border border-[#D8D3C8] shadow-md shadow-black/8">
                   <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbL34JzG4hcniAfyAZDIAIEQh6xIcCs3eBhA6z9uqyv0hBNtU5xZW6xtueKxhGhk4c6H2ZiMxlzU7Nodk2nhLVPxWrXMEHp4091qbW0oYksz23uuYh_v6VP4fFMGqszHznQ692knVUqpIa1LNT0MxjS_ojVh1me8vyTZIGup6UCmdVtOzTsNtQyx32709Hap-UWxLUDZL7DOtkw_BbqhKYaF2hhI7_WeTlaRw3MsvccWLrzaBf-q-sTA"
+                    src="/images/gym%20about.jpeg"
                     alt="Bright, naturally illuminated gym space with athletic stations and clean equipment"
-                    className="w-full aspect-[4/3] object-cover rounded-[5px]"
+                    className="w-full aspect-[4/3] sm:aspect-[16/10] object-cover rounded-[5px]"
                     loading="lazy"
                     width={320}
-                    height={240}
+                    height={200}
                   />
                 </div>
               </div>

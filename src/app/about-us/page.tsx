@@ -63,7 +63,7 @@ export default function AboutUsPage() {
           <ScrollReveal direction="up" delay={0.18}>
             <div className="relative overflow-hidden rounded-2xl bg-sand border border-divider shadow-sm aspect-[16/9] lg:aspect-[21/9]">
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbL34JzG4hcniAfyAZDIAIEQh6xIcCs3eBhA6z9uqyv0hBNtU5xZW6xtueKxhGhk4c6H2ZiMxlzU7Nodk2nhLVPxWrXMEHp4091qbW0oYksz23uuYh_v6VP4fFMGqszHznQ692knVUqpIa1LNT0MxjS_ojVh1me8vyTZIGup6UCmdVtOzTsNtQyx32709Hap-UWxLUDZL7DOtkw_BbqhKYaF2hhI7_WeTlaRw3MsvccWLrzaBf-q-sTA"
+                src="/images/gym%20about.jpeg"
                 alt="Bright, serene gym sanctuary with daylight streaming across clean training stations"
                 className="w-full h-full object-cover"
                 loading="eager"
