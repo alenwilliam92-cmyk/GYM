@@ -8,8 +8,6 @@ import ScrollReveal from "./animations/ScrollReveal";
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const containerRef = useRef<HTMLElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [userPaused, setUserPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   // Check and respond to reduced-motion preferences
@@ -19,7 +17,6 @@ export default function HeroSection() {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mediaQuery.matches) {
       setReducedMotion(true);
-      setIsPlaying(false);
       if (videoRef.current) {
         videoRef.current.pause();
       }
@@ -29,7 +26,6 @@ export default function HeroSection() {
       setReducedMotion(e.matches);
       if (e.matches) {
         videoRef.current?.pause();
-        setIsPlaying(false);
       }
     };
 
@@ -44,14 +40,9 @@ export default function HeroSection() {
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch(() => {
-          // Autoplay policy prevented playback; remains paused gracefully
-          setIsPlaying(false);
-        });
+      playPromise.catch(() => {
+        // Autoplay policy prevented playback; remains paused gracefully
+      });
     }
   }, [reducedMotion]);
 
@@ -64,12 +55,11 @@ export default function HeroSection() {
     // IntersectionObserver to pause offscreen
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!userPaused && !reducedMotion) {
+        if (!reducedMotion) {
           if (entry.isIntersecting) {
-            video.play().then(() => setIsPlaying(true)).catch(() => {});
+            video.play().catch(() => {});
           } else {
             video.pause();
-            setIsPlaying(false);
           }
         }
       },
@@ -82,9 +72,8 @@ export default function HeroSection() {
     const handleVisibilityChange = () => {
       if (document.hidden) {
         video.pause();
-        setIsPlaying(false);
-      } else if (!userPaused && !reducedMotion) {
-        video.play().then(() => setIsPlaying(true)).catch(() => {});
+      } else if (!reducedMotion) {
+        video.play().catch(() => {});
       }
     };
 
@@ -94,26 +83,7 @@ export default function HeroSection() {
       observer.disconnect();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [userPaused, reducedMotion]);
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isPlaying) {
-      video.pause();
-      setIsPlaying(false);
-      setUserPaused(true);
-    } else {
-      setUserPaused(false);
-      video
-        .play()
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch(() => {});
-    }
-  };
+  }, [reducedMotion]);
 
   return (
     <section
@@ -134,8 +104,6 @@ export default function HeroSection() {
         loop
         playsInline
         preload="auto"
-        onPlay={() => setIsPlaying(true)}
-        onPause={() => setIsPlaying(false)}
         className="absolute inset-0 w-full h-full object-cover object-[72%_35%] md:object-[center_35%] pointer-events-none select-none z-0"
       />
 
@@ -218,8 +186,8 @@ export default function HeroSection() {
                 Explore Training
               </Button>
 
-              {/* Mobile Secondary Row: Compact white text link & Play/Pause control (below 768px) */}
-              <div className="md:hidden flex items-center justify-between pt-1">
+              {/* Mobile Secondary Row: Compact white text link (below 768px) */}
+              <div className="md:hidden flex items-center pt-1">
                 <Link
                   href="/training"
                   className="inline-flex items-center gap-1.5 py-2 px-0.5 text-[15px] font-semibold text-white/95 hover:text-white underline underline-offset-4 decoration-white/50 hover:decoration-white focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 min-h-[44px] transition-colors"
@@ -227,95 +195,11 @@ export default function HeroSection() {
                   <span>Explore Training</span>
                   <span aria-hidden="true">→</span>
                 </Link>
-
-                {/* Mobile Play/Pause Control (Anchored in bottom row, 44px touch target, does not overlap text) */}
-                <button
-                  type="button"
-                  onClick={togglePlay}
-                  aria-label={isPlaying ? "Pause background video" : "Play background video"}
-                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-black/45 hover:bg-black/65 text-white backdrop-blur-md border border-white/30 flex items-center justify-center transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 shrink-0"
-                >
-                  {isPlaying ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <rect x="6" y="4" width="4" height="16" />
-                      <rect x="14" y="4" width="4" height="16" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="ml-0.5"
-                      aria-hidden="true"
-                    >
-                      <polygon points="5 3 19 12 5 21 5 3" />
-                    </svg>
-                  )}
-                </button>
               </div>
             </div>
           </ScrollReveal>
         </div>
       </div>
-
-      {/* Desktop Playback Control (768px and above) */}
-      <button
-        type="button"
-        onClick={togglePlay}
-        aria-label={isPlaying ? "Pause background video" : "Play background video"}
-        className="hidden md:flex absolute bottom-8 right-8 z-[2] w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-md border border-white/30 items-center justify-center transition-colors cursor-pointer shadow-md focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
-      >
-        {isPlaying ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <rect x="6" y="4" width="4" height="16" />
-            <rect x="14" y="4" width="4" height="16" />
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="ml-0.5"
-            aria-hidden="true"
-          >
-            <polygon points="5 3 19 12 5 21 5 3" />
-          </svg>
-        )}
-      </button>
     </section>
   );
 }

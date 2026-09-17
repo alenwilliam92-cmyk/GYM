@@ -23,8 +23,6 @@ export default function HeroVideo({
 }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
   const [hasReducedMotion, setHasReducedMotion] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
@@ -38,7 +36,6 @@ export default function HeroVideo({
         setHasReducedMotion(e.matches);
         if (e.matches && videoRef.current) {
           videoRef.current.pause();
-          setIsPlaying(false);
         }
       };
 
@@ -57,13 +54,10 @@ export default function HeroVideo({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!userPaused) {
-          if (entry.isIntersecting) {
-            videoEl.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-          } else {
-            videoEl.pause();
-            setIsPlaying(false);
-          }
+        if (entry.isIntersecting) {
+          videoEl.play().catch(() => {});
+        } else {
+          videoEl.pause();
         }
       },
       { threshold: 0.25 }
@@ -75,9 +69,8 @@ export default function HeroVideo({
     const handleVisibilityChange = () => {
       if (document.hidden) {
         videoEl.pause();
-        setIsPlaying(false);
-      } else if (!userPaused) {
-        videoEl.play().then(() => setIsPlaying(true)).catch(() => {});
+      } else {
+        videoEl.play().catch(() => {});
       }
     };
 
@@ -87,23 +80,7 @@ export default function HeroVideo({
       observer.disconnect();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [videoSrc, userPaused, hasReducedMotion, videoError]);
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isPlaying) {
-      video.pause();
-      setIsPlaying(false);
-      setUserPaused(true);
-    } else {
-      video.play().then(() => {
-        setIsPlaying(true);
-        setUserPaused(false);
-      }).catch(() => {});
-    }
-  };
+  }, [videoSrc, hasReducedMotion, videoError]);
 
   const hasActiveVideo = videoSrc && !hasReducedMotion && !videoError;
 
@@ -142,48 +119,6 @@ export default function HeroVideo({
         <div className="absolute inset-0 z-10 flex flex-col justify-end p-6 sm:p-10 lg:p-14">
           {children}
         </div>
-      )}
-
-      {/* Accessible play/pause control when video is active */}
-      {hasActiveVideo && (
-        <button
-          type="button"
-          onClick={togglePlay}
-          aria-label={isPlaying ? "Pause background video" : "Play background video"}
-          className="absolute bottom-4 right-4 z-20 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-page/90 backdrop-blur-md text-main border border-divider flex items-center justify-center hover:bg-page transition-colors shadow-sm focus-visible:outline-2 focus-visible:outline-accent"
-        >
-          {isPlaying ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="6" y="4" width="4" height="16" />
-              <rect x="14" y="4" width="4" height="16" />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="ml-0.5"
-            >
-              <polygon points="5 3 19 12 5 21 5 3" />
-            </svg>
-          )}
-        </button>
       )}
     </div>
   );
